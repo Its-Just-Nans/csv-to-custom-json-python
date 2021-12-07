@@ -1,6 +1,13 @@
 from main import parseFile
 
 schema = {
+    "test1": [
+        "test3"
+    ],
+    "test2": "string"
+}
+
+schema2 = {
     "test1": {
         "test3": "string",
     },

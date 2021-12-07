@@ -5,7 +5,7 @@ from json import dumps as JSONstringify
 
 def parseFile(pathToFile="", schema=None, optionsUser={}):
     def checkOptions(optionsUser, attr, defaultValue):
-        if hasattr(optionsUser, attr) or (attr == "lineCallBack" and callable(optionsUser[attr])):
+        if attr in optionsUser or (attr == "lineCallBack" and callable(optionsUser[attr])):
             return optionsUser[attr]
         else:
             return defaultValue
@@ -46,13 +46,17 @@ def parseFile(pathToFile="", schema=None, optionsUser={}):
         def createFieldsBinding(schemaObject, startPath=""):
             global firstLine
             bindings = []
-            for oneElement in schemaObject:
+            for index, value in enumerate(schemaObject):
+                if isinstance(schemaObject, list):
+                    oneElement = index
+                elif isinstance(schemaObject, dict):
+                    oneElement = value
                 if startPath == "":
                     path = '{}'.format(oneElement)
                 else:
                     path = '{}{}{}'.format(
                         startPath, options["privateSeparator"], oneElement)
-                if isinstance(schemaObject[oneElement], dict) or isinstance(schemaObject[oneElement], list):
+                if isinstance(schemaObject, dict) and (isinstance(schemaObject[oneElement], dict) or isinstance(schemaObject[oneElement], list)):
                     if isinstance(schemaObject[oneElement], list):
                         bindings.append({
                             "name": oneElement,
@@ -62,7 +66,7 @@ def parseFile(pathToFile="", schema=None, optionsUser={}):
                     bindings = [
                         *bindings, *createFieldsBinding(schemaObject[oneElement], path)]
                 else:
-                    if isinstance(schemaObject, list) and options.arrayParse and schemaObject[oneElement] in firstLine:
+                    if isinstance(schemaObject, list) and options["arrayParse"] and schemaObject[oneElement] in firstLine:
                         bindings.append({
                             "name": schemaObject[oneElement],
                             "path": path,
@@ -97,7 +101,7 @@ def parseFile(pathToFile="", schema=None, optionsUser={}):
                 onePathName = oneRow["name"]
                 allPath = onePathRow.split(options["privateSeparator"])
                 currentValue = None
-                if (not hasattr(oneRow, 'type')) or (hasattr(oneRow, 'type') and oneRow["type"] == None):
+                if ('type' not in oneRow) or ('type' in oneRow and oneRow["type"] == None):
                     schemaValue = oneRow["value"]
                     index = firstLine.index(oneRow["name"])
                     if index == -1:
@@ -117,9 +121,9 @@ def parseFile(pathToFile="", schema=None, optionsUser={}):
                                 currentValue = schemaValue(allValues)
                             else:
                                 currentValue = schemaValue(currentValue)
-                elif (hasattr(oneRow, 'type') and oneRow["type"] == "helper-array"):
+                elif ('type' in oneRow and oneRow["type"] == "helper-array"):
                     currentValue = []
-                elif (hasattr(oneRow, 'type') and oneRow["type"] == "static"):
+                elif ('type' in oneRow and oneRow["type"] == "static"):
                     currentValue = oneRow["value"]
                 goodPlace = None
                 if len(allPath) > 1:
@@ -131,14 +135,13 @@ def parseFile(pathToFile="", schema=None, optionsUser={}):
                             if not isinstance(goodPlace, list):
                                 goodPlace[nextPath] = ""
                         else:
-                            if not hasattr(goodPlace, nextPath):
+                            if nextPath not in goodPlace:
                                 goodPlace[nextPath] = {}
                             goodPlace = goodPlace[nextPath]
-                    if goodPlace:
-                        if isinstance(goodPlace, list):
-                            goodPlace.append(currentValue)
-                        elif isinstance(goodPlace, dict):
-                            goodPlace[onePathName] = currentValue
+                    if isinstance(goodPlace, list):
+                        goodPlace.append(currentValue)
+                    elif isinstance(goodPlace, dict):
+                        goodPlace[onePathName] = currentValue
                     else:
                         goodPlace = currentValue
                 else:
