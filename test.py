@@ -1,4 +1,5 @@
 from main import parseFile
+from json import dumps as JSONstringify
 
 schema = {
     "test1": [
@@ -14,6 +15,14 @@ schema2 = {
     "test2": "string"
 }
 
+schema3 = [
+    "test1",
+    {
+        "test4": "string",
+    },
+    "test2"
+]
+
 
 def test(parsedLine=[], a=[]):
     return None
@@ -23,6 +32,6 @@ options = {
     "lineCallBack": test
 }
 
-res = parseFile("csv.txt", schema, options)
+res = parseFile("csv.txt", {}, options)
 
-print(res)
+print(JSONstringify(res, indent=4))

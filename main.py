@@ -56,7 +56,7 @@ def parseFile(pathToFile="", schema=None, optionsUser={}):
                 else:
                     path = '{}{}{}'.format(
                         startPath, options["privateSeparator"], oneElement)
-                if isinstance(schemaObject, dict) and (isinstance(schemaObject[oneElement], dict) or isinstance(schemaObject[oneElement], list)):
+                if isinstance(schemaObject[oneElement], dict) or isinstance(schemaObject[oneElement], list):
                     if isinstance(schemaObject[oneElement], list):
                         bindings.append({
                             "name": oneElement,
@@ -131,13 +131,21 @@ def parseFile(pathToFile="", schema=None, optionsUser={}):
                     long = len(allPath)
                     for count in range(0, long):
                         nextPath = allPath[count]
+                        if isinstance(goodPlace, list):
+                            nextPathInt = int(nextPath)
                         if count == (long - 1):
                             if not isinstance(goodPlace, list):
                                 goodPlace[nextPath] = ""
                         else:
                             if nextPath not in goodPlace:
-                                goodPlace[nextPath] = {}
-                            goodPlace = goodPlace[nextPath]
+                                if isinstance(goodPlace, list):
+                                    goodPlace.insert(nextPathInt, {})
+                                else:
+                                    goodPlace[nextPath] = {}
+                            if isinstance(goodPlace, list):
+                                goodPlace = goodPlace[nextPathInt]
+                            else:
+                                goodPlace = goodPlace[nextPath]
                     if isinstance(goodPlace, list):
                         goodPlace.append(currentValue)
                     elif isinstance(goodPlace, dict):
@@ -145,14 +153,19 @@ def parseFile(pathToFile="", schema=None, optionsUser={}):
                     else:
                         goodPlace = currentValue
                 else:
-                    obj[onePathRow] = currentValue
+                    if isinstance(obj, list):
+                        place = int(onePathRow)
+                        obj.insert(place, currentValue)
+                    elif isinstance(obj, dict):
+                        obj[onePathRow] = currentValue
             return obj
 
         def parsefirstLine():
             global firstLine
             if isinstance(options["overrideFirstLine"], list):
                 firstLine = options["overrideFirstLine"]
-            if isinstance(schema, dict):
+            if schema != None:
+                # None is default value for schema
                 cols = createFieldsBinding(schema)
                 if options["debug"]:
                     print("BINDINGS:", JSONstringify(cols))
