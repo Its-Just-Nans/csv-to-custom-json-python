@@ -5,18 +5,13 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "test.py",
+            "name": "Python",
             "type": "python",
             "request": "launch",
-            "program": "test.py",
-            "console": "integratedTerminal"
-        },
-        {
-            "name": "Python : Fichier actuel",
-            "type": "python",
-            "request": "launch",
-            "program": "${file}",
-            "console": "integratedTerminal"
+            "program": "-m",
+            "args" : ["unittest"],
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}"
         }
     ]
 }
