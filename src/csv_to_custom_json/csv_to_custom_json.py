@@ -5,7 +5,7 @@ from json import dumps as JSONstringify
 
 def parseFile(pathToFile="", schema=None, optionsUser={}):
     def checkOptions(optionsUser, attr, defaultValue):
-        if attr in optionsUser or (attr == "lineCallBack" and callable(optionsUser[attr])):
+        if attr in optionsUser:
             return optionsUser[attr]
         else:
             return defaultValue
@@ -102,7 +102,10 @@ def parseFile(pathToFile="", schema=None, optionsUser={}):
                 allPath = onePathRow.split(options["privateSeparator"])
                 currentValue = None
                 if ('type' not in oneRow) or ('type' in oneRow and oneRow["type"] == None):
-                    schemaValue = oneRow["value"]
+                    if 'value' not in oneRow:
+                        schemaValue = None
+                    else:
+                        schemaValue = oneRow["value"]
                     index = firstLine.index(oneRow["name"])
                     if index == -1:
                         currentValue = schemaValue
@@ -173,9 +176,9 @@ def parseFile(pathToFile="", schema=None, optionsUser={}):
                 def dupli(element):
                     return {
                         "name": element,
-                        "type": element
+                        "path": element
                     }
-                cols = map(dupli, firstLine)
+                cols = [dupli(x) for x in firstLine]
             return cols
 
         def reader():
