@@ -220,8 +220,6 @@ class Test(unittest.TestCase):
                 "num1": "int"
             }
         ])
-        print("fsdqfsdqfsdqf")
-        print(test[0])
         self.assertEqual(test, [
             [
                 "4",
@@ -514,6 +512,144 @@ class Test(unittest.TestCase):
                     }
                 ],
                 "num3": "9"
+            }
+        ])
+    def test_complex_json_5(self):
+        test = parseFile("./tests/simple_complexe.csv", {
+            "hello": [
+                {
+                    "num4": "int",
+                    "num1": "string"
+                }
+            ],
+            "hello2": [
+                {
+                    "num4": "int",
+                    "num1": [
+                        {
+                            "num3": "string"
+                        }
+                    ]
+                }
+            ]
+        })
+        self.assertEqual(test, [
+            {
+                "hello": [
+                    {
+                        "num4": 4,
+                        "num1": "1"
+                    }
+                ],
+                "hello2": [
+                    {
+                        "num4": 4,
+                        "num1": [
+                            {
+                                "num3": "3"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "hello": [
+                    {
+                        "num4": 7,
+                        "num1": "4"
+                    }
+                ],
+                "hello2": [
+                    {
+                        "num4": 7,
+                        "num1": [
+                            {
+                                "num3": "6"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "hello": [
+                    {
+                        "num4": 10,
+                        "num1": "7"
+                    }
+                ],
+                "hello2": [
+                    {
+                        "num4": 10,
+                        "num1": [
+                            {
+                                "num3": "9"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ])
+    def test_complex_json_6(self):
+        test = parseFile("./tests/simple_complexe.csv", {
+            "hello": [
+                {
+                    "num4": "int",
+                    "num1": "string"
+                }
+            ],
+            "hello2": [
+                [
+                    {
+                        "num3": "string"
+                    }
+                ]
+            ]
+        })
+        self.assertEqual(test, [
+            {
+                "hello": [
+                    {
+                        "num4": 4,
+                        "num1": "1"
+                    }
+                ],
+                "hello2": [
+                    [
+                        {
+                            "num3": "3"
+                        }
+                    ]
+                ]
+            },
+            {
+                "hello": [
+                    {
+                        "num4": 7,
+                        "num1": "4"
+                    }
+                ],
+                "hello2": [
+                    [
+                        {
+                            "num3": "6"
+                        }
+                    ]
+                ]
+            },
+            {
+                "hello": [
+                    {
+                        "num4": 10,
+                        "num1": "7"
+                    }
+                ],
+                "hello2": [
+                    [
+                        {
+                            "num3": "9"
+                        }
+                    ]
+                ]
             }
         ])
 
