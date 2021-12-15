@@ -31,10 +31,11 @@ def parseFile(pathToFile="", schema=None, optionsUser={}):
         if options["error"] == "no":
             print("Useless informations : just use try catch if you don't want error :)")
     if isinstance(pathToFile, str):
-        if isfile(pathToFile):
+        if not isfile(pathToFile):
             if options["error"] == "no":
                 return []
-            # throw new Error("Can't access to the file")
+            else:
+                raise ValueError("Can't access to the file : '{}'".format(pathToFile))
 
     if isinstance(pathToFile, str):
         csvFile = open(pathToFile)
@@ -114,9 +115,10 @@ def parseFile(pathToFile="", schema=None, optionsUser={}):
                 if index == -1:
                     currentValue = schemaValue
                 else:
-                    currentValue = allValues[index] or ""
-                if options["parse"] == True:
-                    if schemaValue == "int":
+                    if index < len(allValues):
+                        currentValue = allValues[index]
+                if options["parse"] == True and currentValue != None:
+                    if schemaValue == "int" and currentValue != '':
                         currentValue = int(currentValue)
                     elif schemaValue == "float":
                         currentValue = float(currentValue)
@@ -144,7 +146,7 @@ def parseFile(pathToFile="", schema=None, optionsUser={}):
                         if isinstance(goodPlace, dict):
                             goodPlace[nextPath] = ""
                     else:
-                        if nextPath not in goodPlace:
+                        if (isinstance(goodPlace, list) and nextPathInt not in goodPlace) or nextPath not in goodPlace:
                             if isinstance(goodPlace, list):
                                 if len(goodPlace) < (nextPathInt+1):
                                     # len() returns 0 and the first index of the list is 0 !
@@ -152,7 +154,8 @@ def parseFile(pathToFile="", schema=None, optionsUser={}):
                             else:
                                 goodPlace[nextPath] = {}
                         if isinstance(goodPlace, list):
-                            goodPlace = goodPlace[nextPathInt]
+                            if nextPathInt < len(goodPlace):
+                                goodPlace = goodPlace[nextPathInt]
                         else:
                             goodPlace = goodPlace[nextPath]
                 if isinstance(goodPlace, list):
@@ -202,8 +205,10 @@ def parseFile(pathToFile="", schema=None, optionsUser={}):
             parsedLine = {}
             if isinstance(pathToFile, list):
                 oneLine = oneLine.split(options["separator"])
+            elif isinstance(pathToFile, str) and isinstance(oneLine, list) and len(oneLine) == 0:
+                oneLine = [''] #create a fake void line
             if options["avoidVoidLine"] == True:
-                if oneLine == "" and oneLine == "\n" or oneLine == "\r\n":
+                if (isinstance(oneLine, list) and len(oneLine) == 0) or (isinstance(oneLine, list) and len(oneLine) >= 1 and oneLine[0] == "") or oneLine == "" or oneLine == "\n" or oneLine == "\r\n":
                     continue
             parsedLine = parseLine(oneLine)
             if callable(options["lineCallBack"]):
