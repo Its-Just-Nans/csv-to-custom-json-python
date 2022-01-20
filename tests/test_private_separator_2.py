@@ -1,23 +1,24 @@
 import unittest
 
-from src.csv_to_custom_json.csv_to_custom_json import parseFile
+from src.csv_to_custom_json import parseFile
+
 
 class Test(unittest.TestCase):
     def test_private_separator_2(self):
         def function1(value):
-            return 'The number 4 is {}'.format(','.join(map(str,value)))
+            return 'The number 4 is {}'.format(','.join(map(str, value)))
         test = parseFile("./tests/simple_complexe.csv", {
-                "num4": {
-                    "num1": "string",
-                    "num1...": "string",
-                    "num2": "string",
-                    "num3": "int",
-                    "hello4": function1
-                }
-            },{
+            "num4": {
+                "num1": "string",
+                "num1...": "string",
+                "num2": "string",
+                "num3": "int",
+                "hello4": function1
+            }
+        }, {
             "debug": True
         })
-        self.assertEqual(test,[
+        self.assertEqual(test, [
             {
                 "num4": {
                     "num1": "1",

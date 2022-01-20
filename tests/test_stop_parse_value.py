@@ -1,6 +1,7 @@
 import unittest
 
-from src.csv_to_custom_json.csv_to_custom_json import parseFile
+from src.csv_to_custom_json import parseFile
+
 
 class Test(unittest.TestCase):
     def test_stop_parse_value(self):

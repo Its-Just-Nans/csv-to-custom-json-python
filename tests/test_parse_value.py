@@ -1,6 +1,7 @@
 import unittest
 
-from src.csv_to_custom_json.csv_to_custom_json import parseFile
+from src.csv_to_custom_json import parseFile
+
 
 class Test(unittest.TestCase):
     def test_parse_value(self):
@@ -9,7 +10,7 @@ class Test(unittest.TestCase):
             "num2": "float",
             "num3": "string"
         })
-        self.assertEqual(test,[
+        self.assertEqual(test, [
             {
                 "num1": 1,
                 "num2": 2,

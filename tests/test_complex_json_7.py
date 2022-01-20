@@ -1,14 +1,17 @@
 import unittest
 
-from src.csv_to_custom_json.csv_to_custom_json import parseFile
+from src.csv_to_custom_json import parseFile
+
 
 class Test(unittest.TestCase):
     def test_complex_json_7(self):
         def function1(allValues):
             mystring = 'toto{}'.format(','.join(map(str, allValues)))
             return mystring
+
         def function2(uselessArg):
             return "arrow"
+
         def function3(allValues):
             mystring = 'hey{}'.format(','.join(map(str, allValues)))
             return mystring

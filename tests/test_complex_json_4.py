@@ -1,6 +1,7 @@
 import unittest
 
-from src.csv_to_custom_json.csv_to_custom_json import parseFile
+from src.csv_to_custom_json import parseFile
+
 
 class Test(unittest.TestCase):
     def test_complex_json_4(self):
@@ -13,7 +14,7 @@ class Test(unittest.TestCase):
             ],
             "num3": ""
         }, {
-            "debug" : "test_complex_json_4"
+            "debug": "test_complex_json_4"
         })
         self.assertEqual(test, [
             {

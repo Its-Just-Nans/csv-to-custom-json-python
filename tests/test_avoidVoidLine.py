@@ -1,12 +1,14 @@
 import unittest
 
-from src.csv_to_custom_json.csv_to_custom_json import parseFile
+from src.csv_to_custom_json import parseFile
+
 
 class Test(unittest.TestCase):
     def test_array_parse(self):
         def function1(allValues):
             mystring = 'toto{}'.format(','.join(map(str, allValues)))
             return mystring
+
         def function2(uselessArg):
             return "arrow"
         test = parseFile("./tests/simple_complexe_with_void_line.csv", [

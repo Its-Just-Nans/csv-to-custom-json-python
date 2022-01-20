@@ -1,10 +1,12 @@
 import unittest
 
-from src.csv_to_custom_json.csv_to_custom_json import parseFile
+from src.csv_to_custom_json import parseFile
+
 
 class Test(unittest.TestCase):
     def test_override_first_line(self):
         newFirstLine = ["hello1", "hello2", "hello3", "hello4"]
+
         def func(value):
             return 'The number 4 is {}'.format(value)
         test = parseFile("./tests/simple_complexe.csv", {
