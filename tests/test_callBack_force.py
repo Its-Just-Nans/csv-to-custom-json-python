@@ -4,7 +4,7 @@ from src.csv_to_custom_json import parseFile
 
 
 class Test(unittest.TestCase):
-    def test_callBack_force(self):
+    def test_callBack_force_2(self):
         def function1(values):
             return None
 
@@ -15,23 +15,11 @@ class Test(unittest.TestCase):
             "num2": function1,
             "num3": "string"
         }, {
-            "lineCallBack": function2,
-            "debug": True
+            "callBackForce": True,
+            "lineCallBack": function2
         })
         self.assertEqual(test, [
-            {
-                "num1": "1",
-                "num2": None,
-                "num3": "3"
-            },
-            {
-                "num1": "4",
-                "num2": None,
-                "num3": "6"
-            },
-            {
-                "num1": "7",
-                "num2": None,
-                "num3": "9"
-            }
+            None,
+            None,
+            None
         ])
