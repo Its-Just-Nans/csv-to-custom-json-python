@@ -98,6 +98,8 @@ It activates the callBack after each line, can be useful if ou want to do a inse
 
 ```sh
 python3 -m unittest tests/test_line_callBack.py
+python3 -m unittest tests/test_line_callBack_force.py
+python3 -m unittest tests/test_line_callBack_value.py
 ```
 
 </details>
