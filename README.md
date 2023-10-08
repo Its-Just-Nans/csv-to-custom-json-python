@@ -5,7 +5,7 @@
 
 ## How to install
 
-- [installation docs](./docs/How-to-install.md)
+- [installation docs](https://github.com/Its-Just-Nans/csv-to-custom-json-python/tree/master/docs/How-to-install.md)
 
 ```sh
 python3 -m pip install csv-to-custom-json
@@ -58,9 +58,9 @@ def callback(value):
     return None
 
 schema = {
-    num1: "string",
-    callback,
-    num3: "int"
+    "num1": "string",
+    "num2": callback,
+    "num3": "int"
 }
 
 result = parseFile("myfile.csv", schema)
@@ -80,26 +80,26 @@ It's the same as a simple schema :
 from csv_to_custom_json import parseFile
 
 schema = {
-    obj1: {
-        obj2: {
-            num4: "string"
+    "obj1": {
+        "obj2": {
+            "num4": "string"
         }
     },
-    num2: "",
-    num3: ""
+    "num2": "",
+    "num3": ""
 }
 result = parseFile("myfile.csv", schema)
 ```
 
 If you want to check some real case, check out the folder `test` in the [GitHub repository](https://github.com/Its-Just-Nans/csv-to-custom-json-python)
 
-If you want to see and use options check that documentation: [How-to-options](./docs/How-to-options.md)
+If you want to see and use options check that documentation: [How-to-options](https://github.com/Its-Just-Nans/csv-to-custom-json-python/tree/master/docs/How-to-options.md)
 
 ## See also
 
-- [Tricks](./docs/How-to-know-more.md)
-- [How-to-options](./docs/How-to-options.md)
-- [CHANGELOG.md](./CHANGELOG.md)
+- [Tricks](https://github.com/Its-Just-Nans/csv-to-custom-json-python/tree/master/docs/How-to-know-more.md)
+- [How-to-options](https://github.com/Its-Just-Nans/csv-to-custom-json-python/tree/master/docs/How-to-options.md)
+- [CHANGELOG.md](https://github.com/Its-Just-Nans/csv-to-custom-json-python/tree/master/CHANGELOG.md)
 - [csv-to-custom-json in JavaScript](https://github.com/Its-Just-Nans/csv-to-custom-json)
 
 ## License

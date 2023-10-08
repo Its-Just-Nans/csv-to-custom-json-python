@@ -30,9 +30,9 @@ def callback(value):
     return None
 
 schema = {
-    num1: "string",
-    callback,
-    num3: "int"
+    "num1": "string",
+    "num2": callback,
+    "num3": "int"
 }
 
 result = parseFile("myfile.csv", schema)
@@ -52,13 +52,13 @@ It's the same as a simple schema :
 from csv_to_custom_json import parseFile
 
 schema = {
-    obj1: {
-        obj2: {
-            num4: "string"
+    "obj1": {
+        "obj2": {
+            "num4": "string"
         }
     },
-    num2: "",
-    num3: ""
+    "num2": "",
+    "num3": ""
 }
 result = parseFile("myfile.csv", schema)
 ```

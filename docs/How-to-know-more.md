@@ -9,7 +9,7 @@ def my_func(allValues):
     return "hello"
 
 schema = {
-    num1: [
+    "num1": [
         "num4",
         "text",
         my_func,
