@@ -99,6 +99,8 @@ If you want to see and use options check that documentation: [How-to-options](./
 
 - [Tricks](./docs/How-to-know-more.md)
 - [How-to-options](./docs/How-to-options.md)
+- [CHANGELOG.md](./CHANGELOG.md)
+- [csv-to-custom-json in JavaScript](https://github.com/Its-Just-Nans/csv-to-custom-json)
 
 ## License
 
