@@ -1,6 +1,6 @@
 # How to use csv-to-custom-json
 
-## Classic usage 
+## Classic usage
 
 Just import the function and use it !
 

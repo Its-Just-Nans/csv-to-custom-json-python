@@ -5,8 +5,6 @@ from src.csv_to_custom_json import parseFile
 
 class Test(unittest.TestCase):
     def test_callBack_force_2(self):
-        def function1(values):
-            return None
 
         def function2(parsedLine, useless2):
             name = list(parsedLine.keys())

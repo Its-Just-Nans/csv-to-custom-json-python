@@ -12,7 +12,7 @@ from json import dumps as JSONstringify
 
 
 def parseFile(path_to_file="", schema=None, options_user={}):
-    """Global function to parse a file"""
+    """ Global function to parse a file """
     def check_options(options_user, attr, default_value):
         """ Check options or put default value """
         if attr in options_user:
@@ -26,7 +26,6 @@ def parseFile(path_to_file="", schema=None, options_user={}):
         "lineCallBack": check_options(options_user, "lineCallBack", None),
         "parse": check_options(options_user, "parse", True),
         "separator": check_options(options_user, "separator", ","),
-        "privateSeparator": check_options(options_user, "privateSeparator", "..."),
         "overrideFirstLine": check_options(options_user, "overrideFirstLine", False),
         "avoidVoidLine": check_options(options_user, "avoidVoidLine", False)
     }
@@ -38,20 +37,18 @@ def parseFile(path_to_file="", schema=None, options_user={}):
             print("OPTIONS", JSONstringify(options))
         if options["error"] == "no":
             print("Useless informations : just use try catch if you don't want error :)")
-    if isinstance(path_to_file, str):
-        if not isfile(path_to_file):
-            if options["error"] == "no":
-                return []
-            raise ValueError(
-                "Can't access to the file : '{}'".format(path_to_file))
+    if isinstance(path_to_file, str) and not isfile(path_to_file):
+        if options["error"] == "no":
+            return []
+        raise ValueError(f"Can't access to the file : '{path_to_file}'")
 
     if isinstance(path_to_file, str):
-        csv_file = open(path_to_file)
+        csv_file = open(path_to_file, encoding="utf-8")
         line_reader = CSVreader(csv_file, delimiter=options["separator"])
     elif isinstance(path_to_file, list):
         line_reader = path_to_file
 
-    def create_fields_binding(schema_object, first_line, start_path=""):
+    def create_fields_binding(schema_object, first_line, start_path=[]):
         """ Create fields bindings """
         bindings = []
         for index, value in enumerate(schema_object):
@@ -61,11 +58,10 @@ def parseFile(path_to_file="", schema=None, options_user={}):
                 one_element = index
             elif is_dict:
                 one_element = value
-            if start_path == "":
-                path = '{}'.format(one_element)
-            else:
-                path = '{}{}{}'.format(
-                    start_path, options["privateSeparator"], one_element)
+            path = []
+            if len(start_path) != 0:
+                path = start_path.copy()
+            path.append(f"{one_element}")
             if isinstance(schema_object[one_element], (dict, list)):
                 if isinstance(schema_object[one_element], list):
                     bindings.append({
@@ -109,7 +105,7 @@ def parseFile(path_to_file="", schema=None, options_user={}):
         for one_row in rows:
             one_path_row = one_row["path"]
             one_path_name = one_row["name"]
-            all_path = one_path_row.split(options["privateSeparator"])
+            all_path = one_path_row
             current_value = None
             if ('type' not in one_row) or ('type' in one_row and one_row["type"] is None):
                 if 'value' not in one_row:
@@ -170,14 +166,12 @@ def parseFile(path_to_file="", schema=None, options_user={}):
                     good_place.append(current_value)
                 elif isinstance(good_place, dict):
                     good_place[one_path_name] = current_value
-                else:
-                    good_place = current_value
             else:
                 if isinstance(obj, list):
-                    place = int(one_path_row)
+                    place = int(one_path_row[0])
                     obj.insert(place, current_value)
                 elif isinstance(obj, dict):
-                    obj[one_path_row] = current_value
+                    obj[one_path_row[0]] = current_value
         return obj
 
     def parse_first_line(first_line):
@@ -193,7 +187,7 @@ def parseFile(path_to_file="", schema=None, options_user={}):
                 """" Duplicate the first line """
                 return {
                     "name": element,
-                    "path": element
+                    "path": [element]
                 }
             cols = [dupli(x) for x in first_line]
         return cols

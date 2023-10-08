@@ -4,16 +4,9 @@ from src.csv_to_custom_json import parseFile
 
 
 class Test(unittest.TestCase):
-    def test_callBack_force(self):
-
-        def function2(useless, useless2):
-            return  # return nothing
-        test = parseFile("./tests/simple.csv", {
-            "num1": "string",
-            "num2": "string",
-            "num3": "string"
-        }, {
-            "lineCallBack": function2
+    def test_debug(self):
+        test = parseFile("./tests/simple.csv", None, {
+            "debug": True
         })
         self.assertEqual(test, [
             {
