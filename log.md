@@ -1,5 +1,6 @@
 # Logs
 
+- 2023-10-08 : Better, remove `customSeparator`
 - 2022-02-11 : Add docs
 - 2022-01-20 :
   - first release : `https://pypi.org/project/csv-to-custom-json`
