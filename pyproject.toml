@@ -1,7 +1,40 @@
+# pyproject.toml
+
 [build-system]
-requires = [
-    "setuptools>=42",
-    "wheel"
-]
+requires = ["setuptools>=61.0.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
+[project]
+name = "csv-to-custom-json"
+version = "0.0.4"
+description = "Easily convert your CSV to custom JSON"
+readme = "README.md"
+authors = [{ name = "n4n5", email = "its.just.n4n5@gmail.com" }]
+license = { file = "LICENSE" }
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+]
+keywords = [
+    "csv",
+    "custom_json",
+    "custom-json",
+    "json",
+    "csv-to-json",
+    "csv_to_json",
+    "convert",
+    "convert-json",
+    "convert_json",
+    "convert-to-json",
+    "convert_to_json",
+    "to-json",
+    "to_json",
+    "csv-to-custom-json",
+    "csv_to_custom_json",
+]
+requires-python = ">=3.6"
+
+[project.urls]
+Homepage = "https://github.com/its-just-nans/csv-to-custom-json-python"
+"Bug Tracker" = "https://github.com/its-just-nans/csv-to-custom-json-python/issues"
