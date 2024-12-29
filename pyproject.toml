@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "csv-to-custom-json"
-version = "0.0.4"
+version = "1.0.0"
 description = "Easily convert your CSV to custom JSON"
 readme = "README.md"
 authors = [{ name = "n4n5", email = "its.just.n4n5@gmail.com" }]

@@ -14,6 +14,10 @@ python3 -m twine upload dist/* --verbose
 # enter token
 ```
 
+## 2024-11-29
+
+- Fix typos
+
 ## 2023-11-09
 
 Use `pyproject.toml` instead of `setup.cfg`
