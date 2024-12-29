@@ -12,7 +12,7 @@ parsedFile = parseFile("myfile.csv", schema, {
 })
 ```
 
-## Informations for tests
+## Information for tests
 
 - For options, when it is written `boolean`, in reality, it can be any `True` value of python. Same for `False`.
 

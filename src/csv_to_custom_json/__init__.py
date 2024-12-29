@@ -36,7 +36,7 @@ def parseFile(path_to_file="", schema=None, options_user={}):
             print("NO SCHEMA")
             print("OPTIONS", JSONstringify(options))
         if options["error"] == "no":
-            print("Useless informations : just use try catch if you don't want error :)")
+            print("Useless information : just use try catch if you don't want error :)")
     if isinstance(path_to_file, str) and not isfile(path_to_file):
         if options["error"] == "no":
             return []

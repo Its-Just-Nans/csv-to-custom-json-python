@@ -1,4 +1,4 @@
-# csv-to-custom-json-python
+# csv-to-custom-json-python [![pypi version](https://img.shields.io/pypi/v/csv-to-custom-json)](https://pypi.org/project/csv-to-custom-json/) ![pypi downloads](https://img.shields.io/pypi/dm/csv-to-custom-json)
 
 - [PyPi page](https://pypi.org/project/csv-to-custom-json/)
 - [PyPiStats](https://pypistats.org/packages/csv-to-custom-json)
@@ -42,7 +42,7 @@ result = parseFile("myfile.csv")
 
 Create a schema variable and put it as second parameter !
 
-Exemple with a simple `csv` :
+Example with a simple `csv` :
 
 ```csv
 num1,num2,num3

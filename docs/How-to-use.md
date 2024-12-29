@@ -14,7 +14,7 @@ result = parseFile("myfile.csv")
 
 Create a schema variable and put it as second parameter !
 
-Exemple with a simple `csv` :
+Example with a simple `csv` :
 
 ```csv
 num1,num2,num3
